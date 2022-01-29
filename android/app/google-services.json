@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "34305563280",
+    "project_id": "carshare-f3948",
+    "storage_bucket": "carshare-f3948.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34305563280:android:e9b78ea44094c14dc7d615",
+        "android_client_info": {
+          "package_name": "com.koderskube.carsharing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34305563280-lk0jp1vp5pq3e5tqot2pocp63rothr0m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.koderskube.carsharing",
+            "certificate_hash": "c323ab24f3e4204b55c07c012047674bfea41064"
+          }
+        },
+        {
+          "client_id": "34305563280-f82p6i7plrs4ugeqsb0big32ecb90t1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9HZwu5XlIyF_Owjlsc2Fs-f3heC6dGfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34305563280-f82p6i7plrs4ugeqsb0big32ecb90t1a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
