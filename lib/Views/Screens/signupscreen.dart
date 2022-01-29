@@ -1,5 +1,6 @@
 import 'package:carsharing/Constants/constants.dart';
 import 'package:carsharing/controller/auth_controller.dart';
+import 'package:carsharing/controller/fb_login_controller.dart';
 import 'package:carsharing/controller/google_signIn_controller.dart';
 
 import 'package:flutter/gestures.dart';
@@ -26,6 +27,7 @@ class _SignUpState extends State<SignUp> {
   AuthController controller = Get.find();
 
   GoogleSignInController gcontroller = Get.find();
+  FacebookController fcontroller = Get.find();
 
   signUp() {
     if (_formKey.currentState!.validate()) {
@@ -256,9 +258,10 @@ class _SignUpState extends State<SignUp> {
                           /* height: 60,
                           width: 60,*/
                           child: IconButton(
-                            icon: Image.asset('assets/facebook.png'),
-                            onPressed: () => print("pressed"),
-                          ),
+                              icon: Image.asset('assets/facebook.png'),
+                              onPressed: () {
+                                fcontroller.facebookLogin();
+                              }),
                         ),
                       ),
                     ],
