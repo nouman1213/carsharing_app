@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">carsharingpk</string>
+<string name="facebook_app_id">350383993356915</string>
+<string name="fb_login_protocol_scheme">fb350383993356915</string>
+<string name="facebook_client_token">4273219b35dd2fe315b3d859306aec12</string>
+
+
+</resources>

@@ -2,6 +2,7 @@ import 'package:carsharing/Constants/constants.dart';
 import 'package:carsharing/Views/Screens/BottomNavScreens/search_main_screen.dart';
 import 'package:carsharing/Views/Screens/signupscreen.dart';
 import 'package:carsharing/controller/auth_controller.dart';
+import 'package:carsharing/controller/fb_login_controller.dart';
 import 'package:carsharing/controller/google_signIn_controller.dart';
 
 import 'package:flutter/gestures.dart';
@@ -24,6 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Map<String, String> userLoginData = {"email": "", "password": ""};
   AuthController controller = Get.put(AuthController());
   GoogleSignInController gcontroller = Get.put(GoogleSignInController());
+  FacebookController fcontroller = Get.put(FacebookController());
+
   login() {
     if (_formKey.currentState!.validate()) {
       print("Form is valid ");
@@ -229,7 +232,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           // width: 60,
                           child: IconButton(
                             icon: Image.asset('assets/facebook.png'),
-                            onPressed: () => print("pressed"),
+                            onPressed: () {
+                              fcontroller.facebookLogin();
+                            },
                           ),
                         ),
                       ),
