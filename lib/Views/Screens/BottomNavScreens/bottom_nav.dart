@@ -1,13 +1,17 @@
 import 'package:carsharing/Constants/constants.dart';
+import 'package:carsharing/controller/data_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:get/get.dart';
 
 import 'account_screen.dart';
 import 'alerts_screen.dart';
 import 'chat_screen.dart';
 import 'rides_screen.dart';
 import 'search_main_screen.dart';
+
+final DataController dataController = Get.put(DataController());
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);

@@ -5,6 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class phoneNumberController extends GetxController {
+
+
+  
   // FirebaseAuth mAuth = FirebaseAuth.instance;
 
   // var status_string = "welcome".obs;

@@ -13,7 +13,7 @@ class MobileScreen extends StatefulWidget {
 }
 
 class _MobileScreenState extends State<MobileScreen> {
-  // final phoneNumberController pcontroller = Get.put(phoneNumberController());
+  final phoneNumberController pcontroller = Get.put(phoneNumberController());
   TextEditingController numController = TextEditingController();
 
   @override
@@ -107,11 +107,7 @@ class _MobileScreenState extends State<MobileScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextButton(
-                          onPressed: () async {
-                            // print('This is phone number${numController.text}');
-                            // await pcontroller.signInWithPhone(
-                            //     my_phone_num: numController.text);
-                          },
+                          onPressed: () {},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

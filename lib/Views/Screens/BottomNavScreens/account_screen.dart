@@ -1,12 +1,17 @@
 import 'package:carsharing/Constants/constants.dart';
+import 'package:carsharing/controller/auth_controller.dart';
+import 'package:carsharing/controller/data_controller.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:get/get.dart';
 
 import '../drawer.dart';
 import '../edit_profile.dart';
 import '../loginscreen.dart';
+
+final DataController controller = Get.find();
 
 class Account extends StatefulWidget {
   @override
@@ -36,7 +41,7 @@ class _AccountState extends State<Account> {
       ),
       drawer: DrawerPage(),
       body: Padding(
-        padding: EdgeInsets.all(2.h),
+        padding: EdgeInsets.all(3.h),
         child: Column(
           children: [
             Container(
@@ -48,41 +53,65 @@ class _AccountState extends State<Account> {
                     padding: EdgeInsets.all(3.h),
                     child: CircleAvatar(
                       radius: 35.0,
-                      child: Image.asset(
-                        "assets/angla.png",
-                      ),
+                      child: Icon(Icons.person),
+                      // child: Image.asset(
+                      //   "assets/angla.png",
+                      // ),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "Angela Yu",
-                        style: TextStyle(
-                          fontSize: 20.dp,
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.settings_cell_outlined,
-                            color: kPrimaryRed,
-                            size: 22.dp,
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(3.h, 0, 1.h, 0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          controller.userProfileData['userName'],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.dp,
                           ),
-                          Text(
-                            "+92340000000",
-                            style: TextStyle(
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.email,
                               color: kPrimaryRed,
-                              fontSize: 20.dp,
+                              size: 15.dp,
                             ),
-                          )
-                        ],
-                      )
-                    ],
+                            Text(
+                              controller.userProfileData['email'],
+                              style: TextStyle(
+                                color: kPrimaryRed,
+                                fontSize: 15.dp,
+                              ),
+                            )
+                          ],
+                        ),
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height * 0.02,
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     Icon(
+                        //       Icons.settings_cell_outlined,
+                        //       color: kPrimaryRed,
+                        //       size: 15.dp,
+                        //     ),
+                        //     Text(
+                        //       "+92340000000",
+                        //       style: TextStyle(
+                        //         color: kPrimaryRed,
+                        //         fontSize: 15.dp,
+                        //       ),
+                        //     )
+                        //   ],
+                        // ),
+                      ],
+                    ),
                   )
                 ],
               ),

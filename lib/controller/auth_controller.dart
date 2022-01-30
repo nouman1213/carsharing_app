@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
+  var userId;
   //Registeration function
   Future<void> signUp(email, password, username) async {
     try {
@@ -58,6 +59,7 @@ class AuthController extends GetxController {
           .signInWithEmailAndPassword(email: email, password: password);
       CommanDialog.hideLoading();
       print(userCredential.user!.uid);
+      userId = userCredential.user!.uid;
       Get.to(BottomNavigation());
     } on FirebaseAuthException catch (e) {
       CommanDialog.hideLoading();
