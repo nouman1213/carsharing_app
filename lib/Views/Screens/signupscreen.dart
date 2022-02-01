@@ -1,5 +1,6 @@
 import 'package:carsharing/Constants/constants.dart';
 import 'package:carsharing/controller/auth_controller.dart';
+import 'package:carsharing/controller/data_controller.dart';
 import 'package:carsharing/controller/fb_login_controller.dart';
 import 'package:carsharing/controller/google_signIn_controller.dart';
 
@@ -34,8 +35,13 @@ class _SignUpState extends State<SignUp> {
       print("Form is valid ");
       _formKey.currentState!.save();
       print('User Sign Up Data $userSignupData');
-      controller.signUp(userSignupData['email'], userSignupData['password'],
-          userSignupData['username']);
+      controller.signUp(
+          userSignupData['email'],
+          userSignupData['password'],
+          userSignupData['username'],
+          userSignupData['phone_number'],
+          userSignupData['DoB'],
+          userSignupData['profilePic']);
     }
   }
 

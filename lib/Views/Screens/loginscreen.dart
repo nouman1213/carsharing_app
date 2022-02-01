@@ -2,6 +2,7 @@ import 'package:carsharing/Constants/constants.dart';
 import 'package:carsharing/Views/Screens/BottomNavScreens/search_main_screen.dart';
 import 'package:carsharing/Views/Screens/signupscreen.dart';
 import 'package:carsharing/controller/auth_controller.dart';
+import 'package:carsharing/controller/data_controller.dart';
 import 'package:carsharing/controller/fb_login_controller.dart';
 import 'package:carsharing/controller/google_signIn_controller.dart';
 
@@ -19,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  DataController dController = Get.put(DataController());
 
   bool visibility = true;
 

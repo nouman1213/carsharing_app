@@ -6,7 +6,13 @@ class DataController extends GetxController {
   AuthController authController = AuthController();
 
   final firebaseInstance = FirebaseFirestore.instance;
-  Map userProfileData = {'userName': '', 'email': ''};
+  Map userProfileData = {
+    'userName': '',
+    'email': '',
+    'phone_number': '',
+    'DoB': '',
+    'profilePic': ''
+  };
 
   void onReady() {
     super.onReady();
@@ -27,6 +33,9 @@ class DataController extends GetxController {
       if (response.docs.length > 0) {
         userProfileData['userName'] = response.docs[0]['user_name'];
         userProfileData['email'] = response.docs[0]['email'];
+        userProfileData['phone_number'] = response.docs[0]['phone_number'];
+        userProfileData['DoB'] = response.docs[0]['DoB'];
+        userProfileData['profilePic'] = response.docs[0]['profilePic'];
       }
       print(userProfileData);
     } on FirebaseException catch (e) {

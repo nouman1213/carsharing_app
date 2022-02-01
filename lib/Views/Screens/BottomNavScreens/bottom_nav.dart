@@ -11,16 +11,13 @@ import 'chat_screen.dart';
 import 'rides_screen.dart';
 import 'search_main_screen.dart';
 
-final DataController dataController = Get.put(DataController());
-
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
-
   @override
   _BottomNavigationState createState() => _BottomNavigationState();
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
+
   int currentTab = 2;
   final List<Widget> screens = [
     Rides(),

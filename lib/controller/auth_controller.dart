@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   var userId;
   //Registeration function
-  Future<void> signUp(email, password, username) async {
+  Future<void> signUp(
+      email, password, username, phone_number, DoB, profilePic) async {
     try {
       CommanDialog.showLoading();
       UserCredential userCredential = await FirebaseAuth.instance
@@ -24,7 +25,10 @@ class AuthController extends GetxController {
           'user_name': username,
           "password": password,
           'joinDate': DateTime.now().millisecondsSinceEpoch,
-          'email': email
+          'email': email,
+          'phone_number': phone_number,
+          'DoB': DoB,
+          'profilePic': profilePic,
         });
         print("Firebase response1111 ${response.id}");
         CommanDialog.hideLoading();

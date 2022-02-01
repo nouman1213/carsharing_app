@@ -11,14 +11,13 @@ import '../drawer.dart';
 import '../edit_profile.dart';
 import '../loginscreen.dart';
 
-final DataController controller = Get.find();
-
 class Account extends StatefulWidget {
   @override
   _AccountState createState() => _AccountState();
 }
 
 class _AccountState extends State<Account> {
+  DataController dController = Get.put(DataController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +65,7 @@ class _AccountState extends State<Account> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          controller.userProfileData['userName'],
+                          dController.userProfileData['userName'],
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16.dp,
@@ -83,7 +82,7 @@ class _AccountState extends State<Account> {
                               size: 15.dp,
                             ),
                             Text(
-                              controller.userProfileData['email'],
+                              dController.userProfileData['email'],
                               style: TextStyle(
                                 color: kPrimaryRed,
                                 fontSize: 15.dp,

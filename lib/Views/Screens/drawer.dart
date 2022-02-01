@@ -29,8 +29,7 @@ class _DrawerPageState extends State<DrawerPage> {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const BottomNavigation()),
+                MaterialPageRoute(builder: (context) => BottomNavigation()),
               );
             },
           ),
