@@ -1,4 +1,5 @@
 import 'package:carsharing/Constants/constants.dart';
+import 'package:carsharing/Models/get_user_data_model.dart';
 import 'package:carsharing/controller/auth_controller.dart';
 import 'package:carsharing/controller/data_controller.dart';
 
@@ -17,11 +18,10 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  DataController dController = Get.find();
-  // AuthController controller = Get.find();
-  AuthController controller = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
+    final AuthController controller = Get.put(AuthController());
+    final DataController dController = Get.put(DataController());
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -45,59 +45,120 @@ class _AccountState extends State<Account> {
         padding: EdgeInsets.all(3.h),
         child: Column(
           children: [
-            Container(
-              height: 20.h,
-              decoration: shadow,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(3.h),
-                    child: CircleAvatar(
-                      radius: 35.0,
-                      child: Icon(Icons.person),
-                      // child: Image.asset(
-                      //   "assets/angla.png",
-                      // ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(3.h, 0, 1.h, 0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          dController.userProfileData['userName'],
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.dp,
-                          ),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02,
-                        ),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.email,
-                              color: kPrimaryRed,
-                              size: 15.dp,
+            GetBuilder<DataController>(
+                init: dController,
+                builder: (Value) {
+                  if (!Value.isLoading) {
+                    return Container(
+                      height: 20.h,
+                      decoration: shadow,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(3.h),
+                            child: CircleAvatar(
+                              radius: 35.0,
+                              child: Icon(Icons.person),
+                              // child: Image.asset(
+                              //   "assets/angla.png",
+                              // ),
                             ),
-                            Text(
-                              dController.userProfileData['email'],
-                              style: TextStyle(
-                                color: kPrimaryRed,
-                                fontSize: 15.dp,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(3.h, 0, 1.h, 0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.dp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.email,
+                                      color: kPrimaryRed,
+                                      size: 15.dp,
+                                    ),
+                                    Text(
+                                      '',
+                                      style: TextStyle(
+                                        color: kPrimaryRed,
+                                        fontSize: 15.dp,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  } else {
+                    return (Container(
+                      height: 20.h,
+                      decoration: shadow,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(3.h),
+                            child: CircleAvatar(
+                              radius: 35.0,
+                              child: Image.asset(
+                                "assets/angla.png",
                               ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(3.h, 0, 1.h, 0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Angla',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16.dp,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.02,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.email,
+                                      color: kPrimaryRed,
+                                      size: 15.dp,
+                                    ),
+                                    Text(
+                                      'angla@gmail.com',
+                                      style: TextStyle(
+                                        color: kPrimaryRed,
+                                        fontSize: 15.dp,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ));
+                  }
+                }),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.04,
             ),

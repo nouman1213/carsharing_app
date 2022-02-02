@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  
   var userId;
   //Registeration function
   Future<void> signUp(
@@ -82,6 +81,7 @@ class AuthController extends GetxController {
       }
     }
   }
+
 //signout
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Future<void> signOut() async {

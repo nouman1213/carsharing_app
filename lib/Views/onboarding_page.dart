@@ -130,7 +130,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  MobileScreen()),
+                                builder: (context) => MobileScreen()),
                           );
                         }
                         _controller.nextPage(
