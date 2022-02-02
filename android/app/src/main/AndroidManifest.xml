@@ -2,6 +2,7 @@
     package="com.koderskube.carsharing">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
+   android:requestLegacyExternalStorage="true"
         android:label="carsharing"
         android:icon="@mipmap/ic_launcher">
        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>

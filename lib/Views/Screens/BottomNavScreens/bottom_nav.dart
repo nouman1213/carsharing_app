@@ -17,7 +17,6 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-
   int currentTab = 2;
   final List<Widget> screens = [
     Rides(),
@@ -28,7 +27,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const Search();
-
+  DataController dController = Get.put(DataController());
   @override
   Widget build(BuildContext context) {
     bool keyboardIsOpened = MediaQuery.of(context).viewInsets.bottom != 0.0;

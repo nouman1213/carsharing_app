@@ -1,9 +1,22 @@
 import 'package:carsharing/Constants/constants.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 class CommanDialog {
+  static showAlert({String? msg}) {
+    Fluttertoast.showToast(
+      msg: msg!,
+      // toastLength: Toast.LENGTH_SHORT,
+      // gravity: ToastGravity.CENTER,
+      // timeInSecForIosWeb: 1,
+      // backgroundColor: kPrimaryRed,
+      // textColor: kPrimaryBlack,
+      // fontSize: 16.0
+    );
+  }
+
   static showLoading({String title = "Loading..."}) {
     Get.dialog(
       Dialog(

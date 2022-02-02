@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../loginscreen.dart';
 
@@ -13,11 +14,11 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  final phoneNumberController controller = Get.find();
+  final phoneNumberController pcontroller = Get.find();
 
-  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -45,86 +46,19 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                     ),
                     SizedBox(height: 6.h),
-                    Form(
-                      key: _formKey,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            height: 8.h,
-                            width: 12.w,
-                            child: TextFormField(
-                              autofocus: true,
-                              obscureText: true,
-                              style: TextStyle(
-                                fontSize: 20.dp,
-                              ),
-                              keyboardType: TextInputType.number,
-                              decoration: otpInputDecoration,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                            width: 12.w,
-                            child: TextFormField(
-                              autofocus: true,
-                              obscureText: true,
-                              style: TextStyle(fontSize: 20.dp),
-                              keyboardType: TextInputType.number,
-                              decoration: otpInputDecoration,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                            width: 12.w,
-                            child: TextFormField(
-                              autofocus: true,
-                              obscureText: true,
-                              style: TextStyle(fontSize: 20.dp),
-                              keyboardType: TextInputType.number,
-                              decoration: otpInputDecoration,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                            width: 12.w,
-                            child: TextFormField(
-                              autofocus: true,
-                              obscureText: true,
-                              style: TextStyle(fontSize: 20.dp),
-                              keyboardType: TextInputType.number,
-                              decoration: otpInputDecoration,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                            width: 12.w,
-                            child: TextFormField(
-                              autofocus: true,
-                              obscureText: true,
-                              style: TextStyle(fontSize: 20.dp),
-                              keyboardType: TextInputType.number,
-                              decoration: otpInputDecoration,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8.h,
-                            width: 12.w,
-                            child: TextFormField(
-                              autofocus: true,
-                              obscureText: true,
-                              style: TextStyle(fontSize: 20.dp),
-                              keyboardType: TextInputType.number,
-                              decoration: otpInputDecoration,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ],
+                    SizedBox(
+                      height: size.height / 18,
+                      width: size.width / 1.2,
+                      child: PinCodeTextField(
+                        appContext: context,
+                        controller: pcontroller.otp,
+                        length: 6,
+                        onChanged: (val) {},
+                        pinTheme: PinTheme(
+                            shape: PinCodeFieldShape.box,
+                            fieldHeight: size.height / 18,
+                            fieldWidth: size.width / 8),
+                        keyboardType: TextInputType.number,
                       ),
                     ),
                     SizedBox(height: 5.h),
@@ -134,11 +68,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       child: ElevatedButton(
                         style: buttonDesign,
                         onPressed: () {
-                          // var userInput = _formKey;
-                          // print(controller.verfi_result);
-                          // controller.myCredential(
-                          //     verId: controller.verfi_result,
-                          //     userInput: userInput);
+                          pcontroller.signInWithPhoneNumber();
                         },
                         child: Text(
                           "Confirm",

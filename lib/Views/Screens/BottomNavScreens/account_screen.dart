@@ -17,7 +17,9 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
-  DataController dController = Get.put(DataController());
+  DataController dController = Get.find();
+  // AuthController controller = Get.find();
+  AuthController controller = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,25 +92,6 @@ class _AccountState extends State<Account> {
                             )
                           ],
                         ),
-                        // SizedBox(
-                        //   height: MediaQuery.of(context).size.height * 0.02,
-                        // ),
-                        // Row(
-                        //   children: [
-                        //     Icon(
-                        //       Icons.settings_cell_outlined,
-                        //       color: kPrimaryRed,
-                        //       size: 15.dp,
-                        //     ),
-                        //     Text(
-                        //       "+92340000000",
-                        //       style: TextStyle(
-                        //         color: kPrimaryRed,
-                        //         fontSize: 15.dp,
-                        //       ),
-                        //     )
-                        //   ],
-                        // ),
                       ],
                     ),
                   )
@@ -131,11 +114,7 @@ class _AccountState extends State<Account> {
                       padding: EdgeInsets.all(10.dp),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EditProfile()),
-                          );
+                          Get.to(() => EditProfile());
                         },
                         child: Row(
                           children: [
@@ -229,11 +208,7 @@ class _AccountState extends State<Account> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()),
-                          );
+                          controller.signOut();
                         },
                         child: Row(
                           children: [

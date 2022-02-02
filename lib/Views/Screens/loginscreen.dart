@@ -20,7 +20,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  DataController dController = Get.put(DataController());
 
   bool visibility = true;
 
@@ -28,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   AuthController controller = Get.put(AuthController());
   GoogleSignInController gcontroller = Get.put(GoogleSignInController());
   FacebookController fcontroller = Get.put(FacebookController());
+  DataController dataController = Get.put(DataController());
 
   login() {
     if (_formKey.currentState!.validate()) {

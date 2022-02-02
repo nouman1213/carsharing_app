@@ -1,11 +1,14 @@
 import 'package:carsharing/Views/Screens/BottomNavScreens/bottom_nav.dart';
 import 'package:carsharing/Views/Screens/BottomNavScreens/search_main_screen.dart';
+import 'package:carsharing/Views/Screens/loginscreen.dart';
 import 'package:carsharing/controller/comman_dailog.dart';
+import 'package:carsharing/controller/data_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
+  
   var userId;
   //Registeration function
   Future<void> signUp(
@@ -64,7 +67,7 @@ class AuthController extends GetxController {
       CommanDialog.hideLoading();
       print(userCredential.user!.uid);
       userId = userCredential.user!.uid;
-      Get.to(BottomNavigation());
+      Get.off(BottomNavigation());
     } on FirebaseAuthException catch (e) {
       CommanDialog.hideLoading();
 
@@ -78,5 +81,11 @@ class AuthController extends GetxController {
         // CommanDialog.hideLoading();
       }
     }
+  }
+//signout
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> signOut() async {
+    await _auth.signOut();
+    Get.to(() => LoginScreen());
   }
 }

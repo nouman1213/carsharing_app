@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:carsharing/controller/auth_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class DataController extends GetxController {
   AuthController authController = AuthController();
-
+  var _userImageFile;
   final firebaseInstance = FirebaseFirestore.instance;
   Map userProfileData = {
+    'user_Id': '',
     'userName': '',
     'email': '',
     'phone_number': '',
@@ -44,4 +47,10 @@ class DataController extends GetxController {
       print(error);
     }
   }
+
+    void _pickedImage(File image) {
+    _userImageFile = image;
+  }
+
+
 }
