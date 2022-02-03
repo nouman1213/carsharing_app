@@ -1,7 +1,11 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 
 import 'package:carsharing/Constants/constants.dart';
+import 'package:carsharing/controller/comman_dailog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
@@ -16,32 +20,65 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
-  Map<String, dynamic> userProfileData = {
-    'userName': '',
-    'email': '',
-    'phone_number': '',
-    'DoB': '',
-    'profilePic': ''
-  };
-  var _userImageFile;
-  upDateProfile() {
-    // if (_userImageFile == null) {
-    //   Get.snackbar(
-    //     "Opps",
-    //     "Image Required",
-    //     snackPosition: SnackPosition.BOTTOM,
-    //     backgroundColor: Theme.of(context).errorColor,
-    //     colorText: Colors.white,
-    //   );
-    //   return;
-    // }
+  TextEditingController name = TextEditingController();
+  TextEditingController mobile = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController DOB = TextEditingController();
+  TextEditingController img = TextEditingController();
+  File? image;
+  String? imgUrl;
 
-    _formKey.currentState!.save();
-    if (_formKey.currentState!.validate()) {
-      print("Form is vaid ");
+  upDateProfieData() async {
+    try {
+      if (_formKey.currentState!.validate()) {
+        CommanDialog.showLoading();
+        var storageImage = FirebaseStorage.instance.ref().child("file.jpg");
+        var task = storageImage.putFile(image!);
+        imgUrl = await (await task).ref.getDownloadURL();
 
-      print('Data for login $userProfileData');
+        await FirebaseFirestore.instance.collection('profileData').add({
+          'name': name.text,
+          'mobile': mobile.text,
+          'email': email.text,
+          'DOB': DOB.text,
+          'img': imgUrl.toString(),
+        });
+        CommanDialog.hideLoading();
+        CommanDialog.showErrorDialog(
+            description: 'UpDate Data Successfully', title: 'Edit Profile');
+      } else {
+        return CommanDialog.showErrorDialog(
+            description: 'you cannot make the fields empty');
+      }
+    } catch (e) {
+      'Error message:$e';
     }
+  }
+
+  /// Get from gallery
+  Future _getFromGallery() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    final pickedImageFile = File(pickedImage!.path);
+    setState(() {
+      image = pickedImageFile;
+    });
+    Get.back();
+  }
+
+  /// Get from Camera
+  Future _getFromCamera() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(
+      source: ImageSource.camera,
+    );
+    final pickedImageFile = File(pickedImage!.path);
+    setState(() {
+      image = pickedImageFile;
+    });
+    Get.back();
   }
 
   // var pickedImage;
@@ -115,8 +152,6 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  File? imageFile;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,20 +197,18 @@ class _EditProfileState extends State<EditProfile> {
                                   Radius.circular(100),
                                 ),
                               ),
-                              child: ClipOval(
-                                child: imageFile != null
-                                    ? Image.file(
-                                        imageFile!,
-                                        width: 30.w,
-                                        height: 18.h,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(
-                                        "assets/angla.png",
-                                        width: 30.w,
-                                        height: 18.h,
-                                        fit: BoxFit.cover,
-                                      ),
+                              child: CircleAvatar(
+                                radius: 65,
+                                backgroundColor: Colors.white,
+                                child: CircleAvatar(
+                                  backgroundColor: kPrimaryRed,
+                                  radius: 69,
+                                  backgroundImage: image == null
+                                      ? null
+                                      : FileImage(
+                                          image!,
+                                        ),
+                                ),
                               ),
                             ),
                             Positioned(
@@ -212,6 +245,8 @@ class _EditProfileState extends State<EditProfile> {
                   style: TextStyle(fontSize: 15.dp, color: Colors.grey),
                 ),
                 TextFormField(
+                  textInputAction: TextInputAction.next,
+                  controller: name,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     //focusedBorder: InputBorder.none,
@@ -230,9 +265,7 @@ class _EditProfileState extends State<EditProfile> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    userProfileData['userName'] = value!;
-                  },
+                  onSaved: (value) {},
                 ),
                 SizedBox(height: 3.h),
                 Text(
@@ -240,7 +273,10 @@ class _EditProfileState extends State<EditProfile> {
                   style: TextStyle(fontSize: 15.dp, color: Colors.grey),
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  controller: mobile,
+                  keyboardType: TextInputType.number,
+                  maxLength: 11,
                   decoration: InputDecoration(
                     errorBorder: InputBorder.none,
                     hintText: "+923444949638",
@@ -255,9 +291,7 @@ class _EditProfileState extends State<EditProfile> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    userProfileData['phone_number'] = value!;
-                  },
+                  onSaved: (value) {},
                 ),
                 SizedBox(height: 3.h),
                 Text(
@@ -265,7 +299,9 @@ class _EditProfileState extends State<EditProfile> {
                   style: TextStyle(fontSize: 15.dp, color: Colors.grey),
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     errorBorder: InputBorder.none,
                     hintText: "Abdulrehman57@hotmail.com",
@@ -280,9 +316,7 @@ class _EditProfileState extends State<EditProfile> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    userProfileData['email'] = value!;
-                  },
+                  onSaved: (value) {},
                 ),
                 SizedBox(height: 3.h),
                 Text(
@@ -290,7 +324,8 @@ class _EditProfileState extends State<EditProfile> {
                   style: TextStyle(fontSize: 15.dp, color: Colors.grey),
                 ),
                 TextFormField(
-                  keyboardType: TextInputType.name,
+                  controller: DOB,
+                  keyboardType: TextInputType.datetime,
                   decoration: InputDecoration(
                     errorBorder: InputBorder.none,
                     hintText: "10-12-1990",
@@ -305,9 +340,7 @@ class _EditProfileState extends State<EditProfile> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    userProfileData['DoB'] = value!;
-                  },
+                  onSaved: (value) {},
                 ),
                 SizedBox(height: 1.h),
                 Padding(
@@ -318,7 +351,7 @@ class _EditProfileState extends State<EditProfile> {
                     child: ElevatedButton(
                       style: buttonDesign,
                       onPressed: () {
-                        upDateProfile();
+                        upDateProfieData();
                       },
                       child: Text(
                         "Update",
@@ -335,31 +368,5 @@ class _EditProfileState extends State<EditProfile> {
         ),
       ),
     );
-  }
-
-  /// Get from gallery
-  _getFromGallery() async {
-    PickedFile pickedFile = (await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    )) as PickedFile;
-    setState(() {
-      imageFile = File(pickedFile.path);
-    });
-  }
-
-  /// Get from Camera
-  _getFromCamera() async {
-    PickedFile? pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
   }
 }

@@ -45,5 +45,6 @@ class DataController extends GetxController {
       userProfile =
           value.docs.map((e) => UserProfileModel.fromJson(e.data())).toList();
     });
+    print(userProfile);
   }
 }

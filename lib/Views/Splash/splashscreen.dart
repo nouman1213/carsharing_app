@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:carsharing/Constants/constants.dart';
+import 'package:carsharing/Views/Screens/BottomNavScreens/bottom_nav.dart';
 import 'package:carsharing/Views/onboarding_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,9 +16,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer.periodic(const Duration(seconds: 6), (timer) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => OnboardingScreen()),
+      Get.to(
+        () => BottomNavigation(),
+        //OnboardingScreen()
       );
       /* Get.offAll(() => OnboardingScreen());*/
       timer.cancel();
