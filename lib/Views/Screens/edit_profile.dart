@@ -27,6 +27,7 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController img = TextEditingController();
   File? image;
   String? imgUrl;
+  var userId;
 
   upDateProfieData() async {
     try {
@@ -36,7 +37,7 @@ class _EditProfileState extends State<EditProfile> {
         var task = storageImage.putFile(image!);
         imgUrl = await (await task).ref.getDownloadURL();
 
-        await FirebaseFirestore.instance.collection('profileData').add({
+        await FirebaseFirestore.instance.collection('userslist').add({
           'name': name.text,
           'mobile': mobile.text,
           'email': email.text,

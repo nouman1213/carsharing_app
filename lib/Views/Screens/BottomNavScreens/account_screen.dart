@@ -71,7 +71,7 @@ class _AccountState extends State<Account> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  '',
+                                  dController.userProfileData['userName'],
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.dp,
@@ -89,7 +89,7 @@ class _AccountState extends State<Account> {
                                       size: 15.dp,
                                     ),
                                     Text(
-                                      '',
+                                      dController.userProfileData['email'],
                                       style: TextStyle(
                                         color: kPrimaryRed,
                                         fontSize: 15.dp,

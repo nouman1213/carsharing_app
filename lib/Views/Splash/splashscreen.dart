@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer.periodic(const Duration(seconds: 6), (timer) {
       Get.to(
-        () => BottomNavigation(),
+        () => OnboardingScreen(),
         //OnboardingScreen()
       );
       /* Get.offAll(() => OnboardingScreen());*/

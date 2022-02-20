@@ -1,16 +1,13 @@
 import 'dart:io';
 
-import 'package:carsharing/Models/get_user_data_model.dart';
 import 'package:carsharing/controller/auth_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class DataController extends GetxController {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  AuthController authController = AuthController();
-
-  late List<UserProfileModel> userProfile;
+  // List userProfile = [];
   bool isLoading = true;
+  var userId;
 
   //onReady Function
 
@@ -18,33 +15,36 @@ class DataController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getAllData();
+    getUserProfileData();
+    //userProfileData();
   }
 
-  //getAllData Function
-
-  void getAllData() async {
-    await Future.wait([
-      userProfileData(),
-    ]).then((value) {
-      print("Data");
-
-      isLoading = false;
-      update();
-    });
-  }
-
-//userProfileData
-
-  Future<void> userProfileData() async {
-    await _firestore
-        .collection('userslist')
-        .where('user_Id', isEqualTo: authController.userId)
-        .get()
-        .then((value) {
-      userProfile =
-          value.docs.map((e) => UserProfileModel.fromJson(e.data())).toList();
-    });
-    print(userProfile);
+  ///new
+  final firebaseInstance = FirebaseFirestore.instance;
+  final AuthController authController = AuthController();
+  Map userProfileData = {'userName': '', 'email': ''};
+  Future<void> getUserProfileData() async {
+    // print("user id ${authController.userId}");
+    try {
+      var response = await firebaseInstance
+          .collection('userslist')
+          .where('user_Id', isEqualTo: authController.userId)
+          .get();
+      // response.docs.forEach((result) {
+      //   print(result.data());
+      // });
+      if (response.docs.length > 0) {
+        userProfileData['userName'] = response.docs[0]['user_name'];
+        userProfileData['email'] = response.docs[0]['email'];
+        isLoading = false;
+        update();
+        print('dataaa fetch succesfully');
+      }
+      print(userProfileData);
+    } on FirebaseException catch (e) {
+      print(e);
+    } catch (error) {
+      print('"data fetching faild" $error');
+    }
   }
 }
